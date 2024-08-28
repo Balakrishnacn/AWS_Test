@@ -1,0 +1,50 @@
+name: Terraform-04
+
+on:
+  push:
+    branches:
+      - main  
+  pull_request:
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: 'us-east-1'  
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: '1.4.6'  
+
+    - name: Terraform Init
+      working-directory: Infrastructure/Load balancer
+      run: |
+        terraform init
+
+    - name: Terraform Validate
+      working-directory: Infrastructure/Load balancer
+      run: |
+        terraform validate 
+
+    - name: Terraform Plan
+      working-directory: Infrastructure/Load balancer
+      run: |
+        terraform plan
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'  # Only apply on main branch
+      working-directory: Infrastructure/Load balancer
+      run: |
+        terraform apply -auto-approve
+
+
+
