@@ -34,7 +34,6 @@ jobs:
         terraform validate 
 
     - name: Terraform Plan
-      working-directory: Infrastructure/Load balancer
       run: terraform plan
 
     - name: Terraform Apply
