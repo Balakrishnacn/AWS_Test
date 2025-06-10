@@ -10,3 +10,5 @@ resource "aws_s3_bucket" "basic_bucket" {
 resource "random_id" "bucket_suffix" {
   byte_length = 2  # Generates a sufficiently unique suffix for the bucket name
 }
+
+#test
