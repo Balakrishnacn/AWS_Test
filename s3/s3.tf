@@ -11,4 +11,4 @@ resource "random_id" "bucket_suffix" {
   byte_length = 2  # Generates a sufficiently unique suffix for the bucket name
 }
 
-#test01
+#Check011
